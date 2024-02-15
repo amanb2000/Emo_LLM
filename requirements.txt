@@ -1,0 +1,9 @@
+ipykernel
+jupyter
+tqdm
+numpy 
+matplotlib
+
+torch
+transformers
+
