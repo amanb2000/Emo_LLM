@@ -3,7 +3,9 @@ jupyter
 tqdm
 numpy 
 matplotlib
+plotly
 
 torch
 transformers
+scikit-learn
 

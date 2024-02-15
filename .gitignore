@@ -1,3 +1,6 @@
 Websters_English_Dictionary.txt
 env/
 venv/
+
+*.html
+*.npy
