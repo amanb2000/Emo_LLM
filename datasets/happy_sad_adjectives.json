@@ -1,0 +1,25 @@
+{
+    "happy_adjectives": [
+      "joyful", "cheerful", "radiant", "blissful", "upbeat", "elated", "jubilant", "gleeful", "ecstatic", "sunny",
+      "buoyant", "lively", "vibrant", "optimistic", "sanguine", "content", "satisfied", "delighted", "overjoyed", "enthused",
+      "exuberant", "euphoric", "animated", "spirited", "glowing", "sparkling", "beaming", "luminous", "bright", "brilliant",
+      "energetic", "zesty", "bubbly", "peppy", "refreshed", "rejuvenated", "invigorated", "stimulated", "thrilled", "excited",
+      "happy", "grateful", "appreciative", "blessed", "fortunate", "lucky", "charmed", "enchanted", "merry", "jolly",
+      "festive", "celebratory", "hearty", "welcoming", "genial", "friendly", "warm", "loving", "affectionate", "kind",
+      "gentle", "tender", "compassionate", "caring", "considerate", "sympathetic", "understanding", "supportive", "encouraging", "motivating",
+      "inspiring", "uplifting", "empowering", "positive", "hopeful", "confident", "assured", "secure", "safe", "protected",
+      "peaceful", "calm", "serene", "tranquil", "relaxed", "easygoing", "carefree", "untroubled", "contented", "satisfied"
+    ],
+    "sad_adjectives": [
+      "sad", "unhappy", "sorrowful", "miserable", "dejected", "depressed", "downcast", "gloomy", "dismal", "bleak",
+      "despondent", "disheartened", "hopeless", "discouraged", "dispirited", "downhearted", "melancholy", "morose", "woeful", "doleful",
+      "pained", "hurt", "wounded", "afflicted", "troubled", "distressed", "anguished", "tormented", "plagued", "burdened",
+      "weighed down", "oppressed", "besieged", "bitter", "resentful", "discontented", "dissatisfied", "frustrated", "annoyed", "irritated",
+      "angry", "furious", "raging", "livid", "indignant", "outraged", "scornful", "disgusted", "repulsed", "sickened",
+      "disappointed", "let down", "betrayed", "abandoned", "forsaken", "neglected", "ignored", "overlooked", "undervalued", "unappreciated",
+      "insecure", "vulnerable", "exposed", "fragile", "weak", "feeble", "powerless", "helpless", "defenseless", "submissive",
+      "timid", "shy", "introverted", "withdrawn", "reclusive", "isolated", "lonely", "alone", "alienated", "estranged",
+      "pessimistic", "cynical", "skeptical", "doubtful", "wary", "cautious", "guarded", "reserved", "tense", "anxious",
+      "worried", "fearful", "terrified", "horrified", "apprehensive", "nervous", "panicked", "alarmed", "shocked", "startled"
+    ]
+}
