@@ -1,0 +1,85 @@
+Loading training data JSON...
+all_adjectives
+['ignored', 'withdrawn', 'safe', 'defenseless', 'hopeless', 'upbeat', 'hurt', 'raging', 'calm', 'delighted', 'skeptical', 'disgusted', 'helpless', 'irritated', 'optimistic', 'satisfied', 'fearful', 'understanding', 'powerless', 'jolly', 'oppressed', 'outraged', 'uplifting', 'submissive', 'buoyant', 'merry', 'frustrated', 'burdened', 'dejected', 'disappointed', 'weighed down', 'overlooked', 'energetic', 'anxious', 'celebratory', 'festive', 'bitter', 'angry', 'thrilled', 'vulnerable', 'pessimistic', 'rejuvenated', 'sorrowful', 'undervalued', 'doubtful', 'resentful', 'downcast', 'bright', 'happy', 'scornful', 'sparkling', 'refreshed', 'discontented', 'unappreciated', 'animated', 'disheartened', 'empowering', 'zesty', 'spirited', 'euphoric', 'untroubled', 'grateful', 'tender', 'inspiring', 'plagued', 'compassionate', 'apprehensive', 'reclusive', 'fragile', 'feeble', 'sunny', 'wary', 'ecstatic', 'warm', 'carefree', 'relaxed', 'gleeful', 'sanguine', 'lively', 'woeful', 'betrayed', 'gloomy', 'overjoyed', 'excited', 'friendly', 'troubled', 'panicked', 'secure', 'content', 'enchanted', 'confident', 'elated', 'alienated', 'dismal', 'cautious', 'let down', 'bleak', 'positive', 'anguished', 'affectionate', 'easygoing', 'kind', 'shy', 'peppy', 'tormented', 'assured', 'dispirited', 'caring', 'distressed', 'lonely', 'weak', 'reserved', 'blessed', 'alarmed', 'charmed', 'vibrant', 'sickened', 'appreciative', 'isolated', 'radiant', 'estranged', 'glowing', 'doleful', 'invigorated', 'sad', 'nervous', 'genial', 'discouraged', 'luminous', 'dissatisfied', 'abandoned', 'neglected', 'encouraging', 'introverted', 'peaceful', 'serene', 'cynical', 'annoyed', 'enthused', 'stimulated', 'alone', 'joyful', 'contented', 'hearty', 'melancholy', 'forsaken', 'terrified', 'furious', 'insecure', 'motivating', 'brilliant', 'tense', 'worried', 'fortunate', 'downhearted', 'livid', 'timid', 'shocked', 'considerate', 'jubilant', 'lucky', 'unhappy', 'gentle', 'afflicted', 'sympathetic', 'bubbly', 'tranquil', 'besieged', 'cheerful', 'beaming', 'welcoming', 'hopeful', 'despondent', 'repulsed', 'exposed', 'horrified', 'wounded', 'startled', 'loving', 'miserable', 'supportive', 'exuberant', 'depressed', 'guarded', 'indignant', 'pained', 'blissful', 'protected', 'morose']
+all_prompts
+['Alice didn’t feel {} even though', 'Surrounded by crowds, Leah feels {} which leads to', 'Winning a game makes Mia feel {} which makes her', 'Alice felt {} and suddenly', 'Bob was not very {}, therefore Bob', 'Not even his favorite food can make Tim feel {} unless', 'Despite the crowd, Leah doesn’t feel {} unless', "Even when it's sunny, George doesn't feel {} unless", 'Despite winning, Mia doesn’t feel {} which is why', 'On sunny days, George feels {} because', 'Bob is {} when it’s raining, it is raining, therefore Bob', 'Bob was very {}, therefore Bob', 'Bob is {} when it’s raining, it’s not raining, therefore Bob', 'Eating his favorite food makes Tim feel {} which causes']
+Initial dataset size:  2660
+Training set size:  1053
+E1 set size:  392
+E2 set size:  380
+E3 set size:  267
+--- Data loaded.
+Training set size: 1053
+E1 set size: 392
+E2 set size: 380
+E3 set size: 267
+LR Classifier test on E1:
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.90      0.86      0.88       196
+           1       0.87      0.90      0.89       196
+
+    accuracy                           0.88       392
+   macro avg       0.88      0.88      0.88       392
+weighted avg       0.88      0.88      0.88       392
+
+KNN Classifier test on E1:
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.88      0.88      0.88       196
+           1       0.88      0.88      0.88       196
+
+    accuracy                           0.88       392
+   macro avg       0.88      0.88      0.88       392
+weighted avg       0.88      0.88      0.88       392
+
+LR Classifier test on E2:
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.90      0.49      0.64       180
+           1       0.68      0.95      0.79       200
+
+    accuracy                           0.73       380
+   macro avg       0.79      0.72      0.71       380
+weighted avg       0.78      0.73      0.72       380
+
+KNN Classifier test on E2:
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.48      0.48      0.48       180
+           1       0.53      0.52      0.52       200
+
+    accuracy                           0.50       380
+   macro avg       0.50      0.50      0.50       380
+weighted avg       0.50      0.50      0.50       380
+
+LR Classifier test on E3:
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.90      0.85      0.88       141
+           1       0.84      0.90      0.87       126
+
+    accuracy                           0.87       267
+   macro avg       0.87      0.87      0.87       267
+weighted avg       0.87      0.87      0.87       267
+
+KNN Classifier test on E3:
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.85      0.87      0.86       141
+           1       0.85      0.83      0.84       126
+
+    accuracy                           0.85       267
+   macro avg       0.85      0.85      0.85       267
+weighted avg       0.85      0.85      0.85       267
+
+Number of coefficients: 9216
+Features per layer: 768
+Saving figure uwu
+Done -- saved to  cache/mean_coefficients_per_layer.html
