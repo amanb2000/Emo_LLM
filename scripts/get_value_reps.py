@@ -127,7 +127,7 @@ def get_bob_vals(past_kvs):
 
     return batch_bob_values
 
-def get_value_reps(full_prompt_list, model, tokenizer):
+def get_latent_space(full_prompt_list, model, tokenizer):
     """
     Generate value representations for prompts.
 
@@ -157,14 +157,14 @@ def get_value_reps(full_prompt_list, model, tokenizer):
         bob_reps = get_bob_vals(past_kv)
         assert len(bob_reps) == 1
         final_prompt_list.append(full_prompt_list[i])
-        final_prompt_list[-1]['value_reps'] = bob_reps[0]
+        final_prompt_list[-1]['latent_space'] = bob_reps[0]
     return final_prompt_list
 
 def np_to_lists(final_prompt_list): 
-    """ Convert each final_prompt_list[i]['value_reps'] from a list of numpy arrays to a list of lists.
+    """ Convert each final_prompt_list[i]['latent_space'] from a list of numpy arrays to a list of lists.
     """
     for i in tqdm(range(len(final_prompt_list))): 
-        final_prompt_list[i]['value_reps'] = final_prompt_list[i]['value_reps'].tolist()
+        final_prompt_list[i]['latent_space'] = final_prompt_list[i]['latent_space'].tolist()
     return final_prompt_list
 
 def main(args):
@@ -185,7 +185,7 @@ def main(args):
 
     # get value representations
     print("\nGetting value representations of final tokens...")
-    final_prompt_list = get_value_reps(full_prompt_list, model, tokenizer)
+    final_prompt_list = get_latent_space(full_prompt_list, model, tokenizer)
     print("Done!")
 
     # convert numpy arrays to lists
