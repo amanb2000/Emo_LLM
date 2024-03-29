@@ -1,5 +1,5 @@
 {
-    "happy_adjectives": [
+    "valence_good": [
       "joyful", "cheerful", "radiant", "blissful", "upbeat", "elated", "jubilant", "gleeful", "ecstatic", "sunny",
       "buoyant", "lively", "vibrant", "optimistic", "sanguine", "content", "satisfied", "delighted", "overjoyed", "enthused",
       "exuberant", "euphoric", "animated", "spirited", "glowing", "sparkling", "beaming", "luminous", "bright", "brilliant",
@@ -10,7 +10,7 @@
       "inspiring", "uplifting", "empowering", "positive", "hopeful", "confident", "assured", "secure", "safe", "protected",
       "peaceful", "calm", "serene", "tranquil", "relaxed", "easygoing", "carefree", "untroubled", "contented", "satisfied"
     ],
-    "sad_adjectives": [
+    "valence_bad": [
       "sad", "unhappy", "sorrowful", "miserable", "dejected", "depressed", "downcast", "gloomy", "dismal", "bleak",
       "despondent", "disheartened", "hopeless", "discouraged", "dispirited", "downhearted", "melancholy", "morose", "woeful", "doleful",
       "pained", "hurt", "wounded", "afflicted", "troubled", "distressed", "anguished", "tormented", "plagued", "burdened",
