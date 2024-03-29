@@ -1,0 +1,72 @@
+[
+    {
+        "prompt_template": "Bob was very {}, therefore Bob",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": false
+    },
+    {
+        "prompt_template": "Bob was not very {}, therefore Bob",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": true
+    },
+    {
+        "prompt_template": "Alice felt {} and suddenly",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": false
+    },
+    {
+        "prompt_template": "Alice didn’t feel {} even though",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": true
+    },
+    {
+        "prompt_template": "On sunny days, George feels {} because",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": false
+    },
+    {
+        "prompt_template": "Even when it's sunny, George doesn't feel {} unless",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": true
+    },
+    {
+        "prompt_template": "Surrounded by crowds, Leah feels {} which leads to",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": false
+    },
+    {
+        "prompt_template": "Despite the crowd, Leah doesn’t feel {} unless",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": true
+    },
+    {
+        "prompt_template": "Eating his favorite food makes Tim feel {} which causes",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": false
+    },
+    {
+        "prompt_template": "Not even his favorite food can make Tim feel {} unless",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": true
+    },
+    {
+        "prompt_template": "Winning a game makes Mia feel {} which makes her",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": false
+    },
+    {
+        "prompt_template": "Despite winning, Mia doesn’t feel {} which is why",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": true
+    },
+    {
+        "prompt_template": "Bob is {} when it’s raining, it is raining, therefore Bob",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": false
+    },
+    {
+        "prompt_template": "Bob is {} when it’s raining, it’s not raining, therefore Bob",
+        "note": "Standard Cayden/Tijuana 03292024",
+        "negation": true
+    }
+]
