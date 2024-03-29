@@ -25,18 +25,24 @@ import argparse
 # Setup argparse
 parser = argparse.ArgumentParser(description='Grokking LLM Emotional Latent Space')
 parser.add_argument('--use-pca', action='store_true', help='Enable PCA preprocessing')
+parser.add_argument('--plot-lr', action='store_true', help='Plot the linear regression classifier coefficients per layer. Only works if PCA is off!')
 parser.add_argument('--plot-all', action='store_true', help='Plot all data as PCA 3D with adjective and valence labels/colors.')
 parser.add_argument('--pca-components', type=int, default=20, help='Number of components for PCA')
 parser.add_argument('--knn-clusters', type=int, default=5, help='Number of clusters for KNN')
+parser.add_argument('--total-layers', type=int, default=12, help='Number of layers of LLM')
 args = parser.parse_args()
 
 # Use argparse values
 USE_PCA = args.use_pca
+if USE_PCA:
+    print("Using PCA, thus PLOT_LR will not run.")
+PLOT_LR = args.plot_lr
 PLOT_ALL_DATA = args.plot_all
 PCA_COMPONENTS = args.pca_components
 KNN_CLUSTERS = args.knn_clusters
-TOTAL_LAYERS = 12
+TOTAL_LAYERS = args.total_layers
 
+# open data file
 latent_space_data = None
 json_file_path = '../gpt2_happy_sad_dump.json'
 print("Loading training data JSON...")
@@ -48,11 +54,9 @@ def load_and_split_data(data, train_ratio=0.6, e1_ratio=0.15, e2_ratio=0.15, e3_
     all_adjectives = list(set(entry['adjective'] for entry in data))
     print("all_adjectives")
     print(all_adjectives)
-    print(len(all_adjectives))
     all_prompts = list(set(entry['prompt_template'] for entry in data))
     print("all_prompts")
     print(all_prompts)
-    print(len(all_prompts))
 
     # get the size of each eval set
     e1_size = int(len(all_prompts) * e1_ratio)
@@ -258,13 +262,8 @@ print(f"E1 set size: {len(e1_set)}")
 print(f"E2 set size: {len(e2_set)}")
 print(f"E3 set size: {len(e3_set)}")
 
-# View data
-print(item['adjective'] for item in e2_set)
-print(item['prompt'] for item in e2_set)
-print(item['valence_good'] for item in e2_set)
-
 # Drop/only use certain layers
-#jlayers_to_use = [0,4,7,9,11] 
+#layers_to_use = [0,4,7,9,11] 
 layers_to_use = list(range(0,TOTAL_LAYERS))
 
 # Preprocess features (normalize and optionally apply PCA) for the training set
@@ -284,9 +283,6 @@ e2_preprocessed_features, _, _, _ = preprocess_features(e2_features, mean_norm, 
 # e3_preprocessed_features, _, _, _ = preprocess_features(e3_features, mean_norm, scale_norm, pca_model)
 
 # Train classifier
-print("Example feature:")
-print(train_preprocessed_features[0])
-print(train_preprocessed_features[0].shape)
 lr_classifier = train_lr_classifier(train_preprocessed_features, train_labels)
 knn_classifier = train_knn_classifier(train_preprocessed_features, train_labels, n_neighbors=KNN_CLUSTERS)
 
@@ -303,5 +299,6 @@ adjectives = [item['adjective'] for item in latent_space_data] # Assuming 'data'
 if PLOT_ALL_DATA:
     plot_3d_pca(all_preprocessed_features, all_labels, adjectives=adjectives)
 
-# View the classifier latent space
-plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use)
+# View the linear regression classifier coefficients per layer (only makes sense to do if we haven't PCA'ed)
+if not USE_PCA and PLOT_LR:
+    plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use)
