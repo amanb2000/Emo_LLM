@@ -20,9 +20,19 @@ import json
 import random
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
+import argparse
 
-USE_PCA = True  # Set to False to disable PCA preprocessing
-PCA_COMPONENTS = 5  # Number of components for PCA, adjust based on your needs
+# Setup argparse
+parser = argparse.ArgumentParser(description='Grokking LLM Emotional Latent Space')
+parser.add_argument('--use-pca', action='store_true', help='Enable PCA preprocessing')
+parser.add_argument('--pca-components', type=int, default=20, help='Number of components for PCA')
+parser.add_argument('--knn-clusters', type=int, default=5, help='Number of clusters for KNN')
+args = parser.parse_args()
+
+# Use argparse values
+USE_PCA = args.use_pca
+PCA_COMPONENTS = args.pca_components
+KNN_CLUSTERS = args.knn_clusters
 
 def load_and_split_data(json_file_path, train_ratio=0.6, e1_ratio=0.15, e2_ratio=0.15, e3_ratio=0.1):
     print("Parsing training data JSON...")
@@ -42,7 +52,10 @@ def load_and_split_data(json_file_path, train_ratio=0.6, e1_ratio=0.15, e2_ratio
     # get the size of each eval set
     e1_size = int(len(all_prompts) * e1_ratio)
     e2_size = int(len(all_adjectives) * e2_ratio)
-    e3_size = int(min(len(all_adjectives), len(all_prompts)) * e3_ratio)
+    e3_size = int(min(len(all_prompts), len(all_adjectives)) * e3_ratio)
+#    e1_size = int(len(data) * e1_ratio)
+#    e2_size = int(len(data) * e2_ratio)
+#    e3_size = int(len(data) * e3_ratio)
 
     # get the special adjectives/prompts to hold out for evals
     e1_prompts = random.sample(all_prompts, e1_size)
@@ -178,7 +191,7 @@ e2_preprocessed_features, _, _, _ = preprocess_features(e2_features, mean_norm, 
 
 # Train classifier
 lr_classifier = train_lr_classifier(train_preprocessed_features, train_labels)
-knn_classifier = train_knn_classifier(train_preprocessed_features, train_labels)
+knn_classifier = train_knn_classifier(train_preprocessed_features, train_labels, n_neighbors=KNN_CLUSTERS)
 
 # Assess clasifier on eval sets
 print("LR Classifier test on E2:")
