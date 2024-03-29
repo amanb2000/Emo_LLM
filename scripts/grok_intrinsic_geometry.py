@@ -3,6 +3,7 @@
 ### cayden, Aman
 
 # Imports 
+import os
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import plotly.graph_objects as go
@@ -21,6 +22,7 @@ import random
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
 import argparse
+import pdb
 
 # Setup argparse
 parser = argparse.ArgumentParser(description='Grokking LLM Emotional Latent Space')
@@ -30,6 +32,7 @@ parser.add_argument('--plot-all', action='store_true', help='Plot all data as PC
 parser.add_argument('--pca-components', type=int, default=20, help='Number of components for PCA')
 parser.add_argument('--knn-clusters', type=int, default=5, help='Number of clusters for KNN')
 parser.add_argument('--total-layers', type=int, default=12, help='Number of layers of LLM')
+parser.add_argument('--cache-dir', type=str, default='cache/', help='Path to the cache directory.')
 args = parser.parse_args()
 
 # Use argparse values
@@ -44,7 +47,7 @@ TOTAL_LAYERS = args.total_layers
 
 # open data file
 latent_space_data = None
-json_file_path = '../gpt2_happy_sad_dump.json'
+json_file_path = 'cache/gpt2_happy_sad_03292024.json'
 print("Loading training data JSON...")
 with open(json_file_path, 'r') as file:
     latent_space_data = json.load(file)
@@ -59,28 +62,32 @@ def load_and_split_data(data, train_ratio=0.6, e1_ratio=0.15, e2_ratio=0.15, e3_
     print(all_prompts)
 
     # get the size of each eval set
-    e1_size = int(len(all_prompts) * e1_ratio)
-    e2_size = int(len(all_adjectives) * e2_ratio)
-    e3_size = int(min(len(all_prompts), len(all_adjectives)) * e3_ratio)
-#    e1_size = int(len(data) * e1_ratio)
-#    e2_size = int(len(data) * e2_ratio)
-#    e3_size = int(len(data) * e3_ratio)
-
+    # e1_size = int(len(all_prompts) * e1_ratio)
+    # e2_size = int(len(all_adjectives) * e2_ratio)
+    # e3_size = int(min(len(all_prompts), len(all_adjectives)) * e3_ratio)
+    e1_size_adj = int(len(all_adjectives) * e1_ratio)
+    e2_size_prompts = int(len(all_prompts) * e2_ratio)
+    e3_size = int(len(data) * e3_ratio)
     # get the special adjectives/prompts to hold out for evals
-    e1_prompts = random.sample(all_prompts, e1_size)
-    e2_adjectives = random.sample(all_adjectives, e2_size)
-    e3_adjectives = random.sample([adj for adj in all_adjectives if adj not in e2_adjectives], e3_size)
-    e3_prompts = random.sample([prompt for prompt in all_prompts if prompt not in e1_prompts], e3_size)
+    e1_adjs = random.sample(all_adjectives, e1_size_adj)
+    e2_prompts = random.sample(all_prompts, e2_size_prompts)
+    e3_objs = random.sample(data, e3_size)
 
     # make those eval sets
-    E1_set = [entry for entry in data if entry['prompt_template'] in e1_prompts]
-    E2_set = [entry for entry in data if entry['adjective'] in e2_adjectives]
-    E3_set = [entry for entry in data if entry['adjective'] in e3_adjectives and entry['prompt_template'] in e3_prompts]
+    E1_set = [entry for entry in data if entry['adjective'] in e1_adjs]
+    E2_set = [entry for entry in data if entry['prompt_template'] in e2_prompts]
+    E3_set = [entry for entry in data if entry in e3_objs]
 
     # training data is what's left over
     remaining_data = [entry for entry in data if entry not in E1_set + E2_set + E3_set]
     train_size = int(len(remaining_data) * train_ratio)
     train_set = random.sample(remaining_data, train_size)
+
+    print("Initial dataset size: ", len(data))
+    print("Training set size: ", len(train_set))
+    print("E1 set size: ", len(E1_set))
+    print("E2 set size: ", len(E2_set))
+    print("E3 set size: ", len(E3_set))
 
     print("--- Data loaded.")
 
@@ -218,7 +225,7 @@ def plot_3d_pca(data, labels, adjectives=None):
 import plotly.graph_objects as go
 import numpy as np
 
-def plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use):
+def plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use, cache_dir=None):
     """
     Plot the mean coefficient weights per layer for a trained Logistic Regression classifier using Plotly.
 
@@ -253,6 +260,12 @@ def plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use):
     )
 
     fig.show()
+    # output to disk if cache_dir is specified
+    if cache_dir:
+        print("Saving figure uwu")
+        out_path = os.path.join(cache_dir, "mean_coefficients_per_layer.html")
+        fig.write_html(out_path)
+        print("Done -- saved to ", out_path)
 
 # Load training data
 train_set, e1_set, e2_set, e3_set = load_and_split_data(latent_space_data)
@@ -271,26 +284,37 @@ train_features, train_labels = extract_features_labels(train_set, layers_to_use)
 train_preprocessed_features, mean_norm, scale_norm, pca_model = preprocess_features(train_features)
 
 # Preprocess features for E1 set (if applicable, uncomment and use as needed)
-# e1_features, e1_labels = extract_features_labels(e1_set)
-# e1_preprocessed_features, _, _, _ = preprocess_features(e1_features, mean_norm, scale_norm, pca_model)
+e1_features, e1_labels = extract_features_labels(e1_set)
+e1_preprocessed_features, _, _, _ = preprocess_features(e1_features, mean_norm, scale_norm, pca_model)
 
 # Preprocess features for E2 set using the same normalization and PCA model
 e2_features, e2_labels = extract_features_labels(e2_set, layers_to_use)
 e2_preprocessed_features, _, _, _ = preprocess_features(e2_features, mean_norm, scale_norm, pca_model)
 
 # Preprocess features for E3 set (if applicable, uncomment and use as needed)
-# e3_features, e3_labels = extract_features_labels(e3_set)
-# e3_preprocessed_features, _, _, _ = preprocess_features(e3_features, mean_norm, scale_norm, pca_model)
+e3_features, e3_labels = extract_features_labels(e3_set)
+e3_preprocessed_features, _, _, _ = preprocess_features(e3_features, mean_norm, scale_norm, pca_model)
 
 # Train classifier
 lr_classifier = train_lr_classifier(train_preprocessed_features, train_labels)
 knn_classifier = train_knn_classifier(train_preprocessed_features, train_labels, n_neighbors=KNN_CLUSTERS)
 
 # Assess clasifier on eval sets
+print("LR Classifier test on E1:")
+test_lr_classifier(lr_classifier, e1_preprocessed_features, e1_labels)
+print("KNN Classifier test on E1:")
+test_knn_classifier(knn_classifier, e1_preprocessed_features, e1_labels)
+
+# 
 print("LR Classifier test on E2:")
 test_lr_classifier(lr_classifier, e2_preprocessed_features, e2_labels)
 print("KNN Classifier test on E2:")
 test_knn_classifier(knn_classifier, e2_preprocessed_features, e2_labels)
+
+print("LR Classifier test on E3:")
+test_lr_classifier(lr_classifier, e3_preprocessed_features, e3_labels)
+print("KNN Classifier test on E3:")
+test_knn_classifier(knn_classifier, e3_preprocessed_features, e3_labels)
 
 # View the dataset PCA
 all_features, all_labels = extract_features_labels(latent_space_data)
@@ -301,4 +325,4 @@ if PLOT_ALL_DATA:
 
 # View the linear regression classifier coefficients per layer (only makes sense to do if we haven't PCA'ed)
 if not USE_PCA and PLOT_LR:
-    plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use)
+    plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use, cache_dir = args.cache_dir)
