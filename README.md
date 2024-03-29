@@ -25,3 +25,7 @@ pip install -r requirements.txt
  - `notebooks/`: Prototype Jupyter notebooks for analyzing latent 
  representations of transformer-based LLMs from HuggingFace. 
  - `html/`: Plotly interactive plots of PCA on representations. 
+
+# Run grok_intrinsic_geometry.py
+
+`python grok_intrinsic_geometry.py --use-pca --pca-components 20 --knn-clusters 5`
