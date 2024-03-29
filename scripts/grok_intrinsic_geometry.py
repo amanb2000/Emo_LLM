@@ -5,7 +5,7 @@
 # Imports 
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-
+import plotly.graph_objects as go
 import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm 
@@ -25,20 +25,25 @@ import argparse
 # Setup argparse
 parser = argparse.ArgumentParser(description='Grokking LLM Emotional Latent Space')
 parser.add_argument('--use-pca', action='store_true', help='Enable PCA preprocessing')
+parser.add_argument('--plot-all', action='store_true', help='Plot all data as PCA 3D with adjective and valence labels/colors.')
 parser.add_argument('--pca-components', type=int, default=20, help='Number of components for PCA')
 parser.add_argument('--knn-clusters', type=int, default=5, help='Number of clusters for KNN')
 args = parser.parse_args()
 
 # Use argparse values
 USE_PCA = args.use_pca
+PLOT_ALL_DATA = args.plot_all
 PCA_COMPONENTS = args.pca_components
 KNN_CLUSTERS = args.knn_clusters
+TOTAL_LAYERS = 12
 
-def load_and_split_data(json_file_path, train_ratio=0.6, e1_ratio=0.15, e2_ratio=0.15, e3_ratio=0.1):
-    print("Parsing training data JSON...")
-    with open(json_file_path, 'r') as file:
-        data = json.load(file)
+latent_space_data = None
+json_file_path = '../gpt2_happy_sad_dump.json'
+print("Loading training data JSON...")
+with open(json_file_path, 'r') as file:
+    latent_space_data = json.load(file)
 
+def load_and_split_data(data, train_ratio=0.6, e1_ratio=0.15, e2_ratio=0.15, e3_ratio=0.1):
     # get all the possible adjectives prompts in the dataset
     all_adjectives = list(set(entry['adjective'] for entry in data))
     print("all_adjectives")
@@ -77,18 +82,32 @@ def load_and_split_data(json_file_path, train_ratio=0.6, e1_ratio=0.15, e2_ratio
 
     return train_set, E1_set, E2_set, E3_set
 
-def extract_features_labels(data):
+def extract_features_labels(data, layers_to_use=None):
+    """
+    Extract features and labels from the data.
+
+    Parameters:
+    - data: The dataset containing latent vectors and labels.
+    - layers_to_use: Optional list of integers specifying which transformer layers to use. If None, all layers are used.
+
+    Returns:
+    - A tuple of (features, labels), where features is a NumPy array of the flattened selected layers and labels is a NumPy array of the binary labels.
+    """
     features = []
     labels = []
 
     for item in data:
-        # Flatten each list of lists of lists in latent_space into a single list for each data entry
         latent_vectors = item['latent_space']
-        # Adjust flattening for an extra level of nesting
-        flattened_vector = [val for sublist in latent_vectors for subsublist in sublist for val in subsublist]
-        features.append(flattened_vector)
 
-        # Label extraction remains the same
+        if layers_to_use is not None:
+            # Filter the latent vectors to only include the specified layers
+            latent_vectors = [latent_vectors[i] for i in layers_to_use]
+
+        # Flatten the selected layers into a single list for each data entry
+        # Adjust flattening to account for the two levels of nesting now
+        flattened_vector = [val for layer in latent_vectors for head in layer for val in head]
+
+        features.append(flattened_vector)
         labels.append(1 if item['valence_good'] else 0)
 
     return np.array(features), np.array(labels)
@@ -158,10 +177,81 @@ def test_knn_classifier(classifier, features, labels):
     y_pred = classifier.predict(features)
     print("Classification Report:\n", classification_report(labels, y_pred))
 
+def plot_3d_pca(data, labels, adjectives=None):
+    # Normalize labels for color scaling
+    colors = np.array(labels) - np.min(labels)
+    colors = colors / np.max(colors)
+    
+    # Create a 3D scatter plot
+    fig = go.Figure(data=[go.Scatter3d(
+        x=data[:, 0],
+        y=data[:, 1],
+        z=data[:, 2],
+        text=adjectives,  # Use adjectives as markers' text
+        mode='markers+text',  # Display both markers and text
+        marker=dict(
+            size=5,
+            color=colors,  # Use normalized labels for color
+            opacity=0.8
+        )
+    )])
+    
+    # Customize layout
+    fig.update_layout(
+        title='3D PCA Visualization',
+        scene=dict(
+            xaxis_title='PC1',
+            yaxis_title='PC2',
+            zaxis_title='PC3'
+        )
+    )
+    
+    # Show plot in notebook or export as desired
+    fig.show()
+    # To export to HTML, uncomment the following line:
+    # fig.write_html('3d_pca_visualization.html')
+
+import plotly.graph_objects as go
+import numpy as np
+
+def plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use):
+    """
+    Plot the mean coefficient weights per layer for a trained Logistic Regression classifier using Plotly.
+
+    Parameters:
+    - lr_classifier: The trained Logistic Regression classifier.
+    - layers_to_use: The layers we trained the classifier on
+    """
+    coefficients = lr_classifier.coef_.flatten()  # Extract model coefficients
+    print("Number of coefficients: {}".format(len(coefficients)))
+    total_layers = len(layers_to_use)
+
+    # Assuming equal feature contribution from each layer if not specified
+    features_per_layer = len(coefficients) // total_layers
+
+    print("Features per layer: {}".format(features_per_layer))
+
+    # Calculate mean coefficient weight per layer
+    mean_coefficients_per_layer = [np.abs(np.mean(coefficients[i*features_per_layer:(i+1)*features_per_layer])) for i in range(total_layers)]
+
+    # Plotting with Plotly
+    fig = go.Figure(data=[go.Bar(
+        x=[f'Layer {i}' for i in layers_to_use],
+        y=mean_coefficients_per_layer,
+        marker_color=np.where(np.array(mean_coefficients_per_layer) > 0, 'blue', 'red')  # Color code positive and negative
+    )])
+
+    fig.update_layout(
+        title='Mean Coefficient Weights per Layer in Logistic Regression Classifier',
+        xaxis_title='Layer',
+        yaxis_title='Mean Coefficient Value',
+        template='plotly_white'
+    )
+
+    fig.show()
 
 # Load training data
-json_file_path = '../gpt2_happy_sad_dump.json'
-train_set, e1_set, e2_set, e3_set = load_and_split_data(json_file_path)
+train_set, e1_set, e2_set, e3_set = load_and_split_data(latent_space_data)
 
 print(f"Training set size: {len(train_set)}")
 print(f"E1 set size: {len(e1_set)}")
@@ -173,8 +263,12 @@ print(item['adjective'] for item in e2_set)
 print(item['prompt'] for item in e2_set)
 print(item['valence_good'] for item in e2_set)
 
+# Drop/only use certain layers
+#jlayers_to_use = [0,4,7,9,11] 
+layers_to_use = list(range(0,TOTAL_LAYERS))
+
 # Preprocess features (normalize and optionally apply PCA) for the training set
-train_features, train_labels = extract_features_labels(train_set)
+train_features, train_labels = extract_features_labels(train_set, layers_to_use)
 train_preprocessed_features, mean_norm, scale_norm, pca_model = preprocess_features(train_features)
 
 # Preprocess features for E1 set (if applicable, uncomment and use as needed)
@@ -182,7 +276,7 @@ train_preprocessed_features, mean_norm, scale_norm, pca_model = preprocess_featu
 # e1_preprocessed_features, _, _, _ = preprocess_features(e1_features, mean_norm, scale_norm, pca_model)
 
 # Preprocess features for E2 set using the same normalization and PCA model
-e2_features, e2_labels = extract_features_labels(e2_set)
+e2_features, e2_labels = extract_features_labels(e2_set, layers_to_use)
 e2_preprocessed_features, _, _, _ = preprocess_features(e2_features, mean_norm, scale_norm, pca_model)
 
 # Preprocess features for E3 set (if applicable, uncomment and use as needed)
@@ -190,6 +284,9 @@ e2_preprocessed_features, _, _, _ = preprocess_features(e2_features, mean_norm, 
 # e3_preprocessed_features, _, _, _ = preprocess_features(e3_features, mean_norm, scale_norm, pca_model)
 
 # Train classifier
+print("Example feature:")
+print(train_preprocessed_features[0])
+print(train_preprocessed_features[0].shape)
 lr_classifier = train_lr_classifier(train_preprocessed_features, train_labels)
 knn_classifier = train_knn_classifier(train_preprocessed_features, train_labels, n_neighbors=KNN_CLUSTERS)
 
@@ -198,3 +295,13 @@ print("LR Classifier test on E2:")
 test_lr_classifier(lr_classifier, e2_preprocessed_features, e2_labels)
 print("KNN Classifier test on E2:")
 test_knn_classifier(knn_classifier, e2_preprocessed_features, e2_labels)
+
+# View the dataset PCA
+all_features, all_labels = extract_features_labels(latent_space_data)
+all_preprocessed_features, _, _, pca_model = preprocess_features(all_features)
+adjectives = [item['adjective'] for item in latent_space_data] # Assuming 'data' is your entire dataset # Optionally, if you want to visualize using specific labels or adjectives
+if PLOT_ALL_DATA:
+    plot_3d_pca(all_preprocessed_features, all_labels, adjectives=adjectives)
+
+# View the classifier latent space
+plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use)
