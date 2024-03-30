@@ -77,26 +77,51 @@ def load_and_split_data(data, train_ratio=0.6, e1_ratio=0.15, e2_ratio=0.15, e3_
     print(all_prompts)
 
     # get the size of each eval set
-    # e1_size = int(len(all_prompts) * e1_ratio)
-    # e2_size = int(len(all_adjectives) * e2_ratio)
-    # e3_size = int(min(len(all_prompts), len(all_adjectives)) * e3_ratio)
+    # SLOW PART STARTS HERE>>>
+    # e1_size_adj = int(len(all_adjectives) * e1_ratio)
+    # e2_size_prompts = int(len(all_prompts) * e2_ratio)
+    # e3_size = int(len(data) * e3_ratio)
+    # # get the special adjectives/prompts to hold out for evals
+    # e1_adjs = random.sample(all_adjectives, e1_size_adj)
+    # e2_prompts = random.sample(all_prompts, e2_size_prompts)
+    # e3_objs = random.sample(data, e3_size)
+
+    # # make those eval sets
+    # E1_set = [entry for entry in data if entry['adjective'] in e1_adjs]
+    # E2_set = [entry for entry in data if entry['prompt_template'] in e2_prompts]
+    # E3_set = [entry for entry in data if entry in e3_objs]
+    # get the size of each eval set
     e1_size_adj = int(len(all_adjectives) * e1_ratio)
     e2_size_prompts = int(len(all_prompts) * e2_ratio)
     e3_size = int(len(data) * e3_ratio)
+
     # get the special adjectives/prompts to hold out for evals
     e1_adjs = random.sample(all_adjectives, e1_size_adj)
     e2_prompts = random.sample(all_prompts, e2_size_prompts)
     e3_objs = random.sample(data, e3_size)
 
-    # make those eval sets
-    E1_set = [entry for entry in data if entry['adjective'] in e1_adjs]
-    E2_set = [entry for entry in data if entry['prompt_template'] in e2_prompts]
-    E3_set = [entry for entry in data if entry in e3_objs]
+    # make those eval sets and training set in a single pass
+    E1_set = []
+    E2_set = []
+    E3_set = []
+    train_set = []
+
+    for entry in data:
+        if entry['adjective'] in e1_adjs:
+            E1_set.append(entry)
+        elif entry['prompt_template'] in e2_prompts:
+            E2_set.append(entry)
+        elif entry in e3_objs:
+            E3_set.append(entry)
+        else:
+            train_set.append(entry)
 
     # training data is what's left over
-    remaining_data = [entry for entry in data if entry not in E1_set + E2_set + E3_set]
-    train_size = int(len(remaining_data) * train_ratio)
-    train_set = random.sample(remaining_data, train_size)
+    # remaining_data = [entry for entry in data if entry not in E1_set + E2_set + E3_set]
+    # train_size = int(len(remaining_data) * train_ratio)
+    # train_set = random.sample(remaining_data, train_size)
+    train_size = int(len(train_set) * train_ratio)
+    train_set = random.sample(train_set, train_size)
 
     print("Initial dataset size: ", len(data))
     print("Training set size: ", len(train_set))
@@ -105,7 +130,7 @@ def load_and_split_data(data, train_ratio=0.6, e1_ratio=0.15, e2_ratio=0.15, e3_
     print("E3 set size: ", len(E3_set))
 
     print("--- Data loaded.")
-
+    # SLOW PART ENDS HERE <<<
     return train_set, E1_set, E2_set, E3_set
 
 def extract_features_labels(data, layers_to_use=None):
@@ -417,14 +442,18 @@ all_adjectives = list(set(entry['adjective'] for entry in latent_space_data))
 all_prompts = list(set(entry['prompt_template'] for entry in latent_space_data))
 # pdb.set_trace()
 
+
 if PLOT_ALL_DATA:
+    # all data plot
+    all_preprocessed_features, _, _, pca_model = preprocess_features(all_features, use_pca = True)
+    plot_3d_pca(all_preprocessed_features, all_labels, adjectives=adjectives, output_dir = args.output_dir, prompt="ALL PROMPTS")
     for prompt in all_prompts: 
         prompt_mask = [item['prompt_template'] == prompt for item in latent_space_data]
 
         # pdb.set_trace()
         all_features_filtered = all_features[prompt_mask, :]
         all_labels_filtered = all_labels[prompt_mask]
-        all_preprocessed_features, _, _, pca_model = preprocess_features(all_features_filtered, use_pca = True, pca_model = pca_model, mean = mean_norm, scale = scale_norm)
+        all_preprocessed_features, _, _, pca_model = preprocess_features(all_features_filtered, use_pca = True)
         # pdb.set_trace()
         plot_3d_pca(all_preprocessed_features, all_labels_filtered, adjectives=np.array(adjectives)[prompt_mask].tolist(), output_dir = args.output_dir, prompt=prompt)
 
