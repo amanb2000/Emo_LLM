@@ -26,14 +26,27 @@ import pdb
 
 # Setup argparse
 parser = argparse.ArgumentParser(description='Grokking LLM Emotional Latent Space')
+parser.add_argument('--dataset-json', action='store', type=str, default='cache/gpt2_happy_sad_03292024.json', help='Path to the dataset JSON file.')
 parser.add_argument('--use-pca', action='store_true', help='Enable PCA preprocessing')
 parser.add_argument('--plot-lr', action='store_true', help='Plot the linear regression classifier coefficients per layer. Only works if PCA is off!')
 parser.add_argument('--plot-all', action='store_true', help='Plot all data as PCA 3D with adjective and valence labels/colors.')
 parser.add_argument('--pca-components', type=int, default=20, help='Number of components for PCA')
 parser.add_argument('--knn-clusters', type=int, default=5, help='Number of clusters for KNN')
 parser.add_argument('--total-layers', type=int, default=12, help='Number of layers of LLM')
-parser.add_argument('--cache-dir', type=str, default='cache/', help='Path to the cache directory.')
+parser.add_argument('--output-dir', type=str, default='cache/', help='Path to the cache directory.')
+
 args = parser.parse_args()
+
+
+# make output-dir if it doesn't exist. Confirm overwrite if it exists
+if not os.path.exists(args.output_dir):
+    os.makedirs(args.output_dir)
+else:
+    print(f"Output directory {args.output_dir} already exists. Overwrite? (y/n) ")
+    if input().lower() != 'y':
+        print("Exiting...")
+        exit(0)
+
 
 # Use argparse values
 USE_PCA = args.use_pca
@@ -47,8 +60,10 @@ TOTAL_LAYERS = args.total_layers
 
 # open data file
 latent_space_data = None
-json_file_path = 'cache/gpt2_happy_sad_03292024.json'
+# json_file_path = 'cache/gpt2_happy_sad_03292024.json'
+json_file_path = args.dataset_json
 print("Loading training data JSON...")
+
 with open(json_file_path, 'r') as file:
     latent_space_data = json.load(file)
 
@@ -119,11 +134,11 @@ def extract_features_labels(data, layers_to_use=None):
         flattened_vector = [val for layer in latent_vectors for head in layer for val in head]
 
         features.append(flattened_vector)
-        labels.append(1 if item['valence_good'] else 0)
+        labels.append(1 if item['class_0_true'] else 0)
 
     return np.array(features), np.array(labels)
 
-def preprocess_features(features, mean=None, scale=None, pca_model=None):
+def preprocess_features(features, mean=None, scale=None, pca_model=None, use_pca=False):
     # Initialize the scaler
     scaler = StandardScaler()
 
@@ -138,7 +153,7 @@ def preprocess_features(features, mean=None, scale=None, pca_model=None):
         normalized_features = scaler.transform(features)
 
     # Apply PCA if enabled
-    if USE_PCA:
+    if use_pca:
         if pca_model is None:
             pca_model = PCA(n_components=PCA_COMPONENTS)
             pca_features = pca_model.fit_transform(normalized_features)
@@ -153,9 +168,15 @@ def train_lr_classifier(features, labels):
     classifier.fit(features, labels)
     return classifier
 
-def test_lr_classifier(classifier, features, labels):
+def test_lr_classifier(classifier, features, labels, out_path = None):
     y_pred = classifier.predict(features)
-    print("Classification Report:\n", classification_report(labels, y_pred))
+    classification_report_ = classification_report(labels, y_pred)
+    print("Classification Report:\n", classification_report_)
+
+    if out_path is not None: 
+        out_path = os.path.join(out_path)
+        with open(out_path, 'w') as f: 
+            f.write(classification_report_)
 
 def train_knn_classifier(features, labels, n_neighbors=5):
     """
@@ -173,7 +194,33 @@ def train_knn_classifier(features, labels, n_neighbors=5):
     classifier.fit(features, labels)
     return classifier
 
-def test_knn_classifier(classifier, features, labels):
+
+import re
+
+def sanitize_filename(filename):
+    """
+    Sanitizes a string to be safe for use as a filename by removing or replacing characters
+    that are not allowed or recommended in Windows and UNIX/Linux filesystems.
+    
+    Args:
+    filename (str): The original filename string to sanitize.
+    
+    Returns:
+    str: A sanitized version of the filename.
+    """
+    # Remove characters that are invalid for Windows or UNIX/Linux filesystems
+    sanitized = re.sub(r'[<>:"/\\|?*\x00-\x1F]', '', filename)
+    # Replace leading and trailing periods and spaces (Windows)
+    sanitized = re.sub(r'^[. ]+', '', sanitized)
+    sanitized = re.sub(r'[. ]+$', '', sanitized)
+    # Replace multiple consecutive spaces with a single space
+    sanitized = re.sub(r' +', ' ', sanitized)
+    # Ensure the filename is not too long
+    sanitized = sanitized[:255]
+    return sanitized
+
+
+def test_knn_classifier(classifier, features, labels, out_path = None):
     """
     Test (evaluate) the trained K-Nearest Neighbors classifier on a test dataset.
 
@@ -186,9 +233,13 @@ def test_knn_classifier(classifier, features, labels):
     - Classification report including precision, recall, and F1-score.
     """
     y_pred = classifier.predict(features)
-    print("Classification Report:\n", classification_report(labels, y_pred))
+    classification_report_ = classification_report(labels, y_pred)
+    print("Classification Report:\n", classification_report_)
+    if out_path is not None:
+        with open(out_path, 'w') as f: 
+            f.write(classification_report_)
 
-def plot_3d_pca(data, labels, adjectives=None):
+def plot_3d_pca(data, labels, adjectives=None, output_dir = None, prompt=""):
     # Normalize labels for color scaling
     colors = np.array(labels) - np.min(labels)
     colors = colors / np.max(colors)
@@ -209,7 +260,7 @@ def plot_3d_pca(data, labels, adjectives=None):
     
     # Customize layout
     fig.update_layout(
-        title='3D PCA Visualization',
+        title=f'3D PCA Visualization, prompt={prompt}',
         scene=dict(
             xaxis_title='PC1',
             yaxis_title='PC2',
@@ -221,11 +272,16 @@ def plot_3d_pca(data, labels, adjectives=None):
     fig.show()
     # To export to HTML, uncomment the following line:
     # fig.write_html('3d_pca_visualization.html')
+    if output_dir: 
+        out_path = os.path.join(output_dir, f"3d_pca_visualization{sanitize_filename(prompt)}.html")
+        print("OUTPUT PATH FOR PCA: ", out_path)
+        fig.write_html(out_path)
+
 
 import plotly.graph_objects as go
 import numpy as np
 
-def plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use, cache_dir=None):
+def plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use, output_dir=None):
     """
     Plot the mean coefficient weights per layer for a trained Logistic Regression classifier using Plotly.
 
@@ -261,9 +317,9 @@ def plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use, c
 
     fig.show()
     # output to disk if cache_dir is specified
-    if cache_dir:
+    if output_dir:
         print("Saving figure uwu")
-        out_path = os.path.join(cache_dir, "mean_coefficients_per_layer.html")
+        out_path = os.path.join(output_dir, "mean_coefficients_per_layer.html")
         fig.write_html(out_path)
         print("Done -- saved to ", out_path)
 
@@ -281,48 +337,97 @@ layers_to_use = list(range(0,TOTAL_LAYERS))
 
 # Preprocess features (normalize and optionally apply PCA) for the training set
 train_features, train_labels = extract_features_labels(train_set, layers_to_use)
-train_preprocessed_features, mean_norm, scale_norm, pca_model = preprocess_features(train_features)
+train_preprocessed_features, mean_norm, scale_norm, pca_model = preprocess_features(train_features, use_pca=USE_PCA)
 
 # Preprocess features for E1 set (if applicable, uncomment and use as needed)
 e1_features, e1_labels = extract_features_labels(e1_set)
-e1_preprocessed_features, _, _, _ = preprocess_features(e1_features, mean_norm, scale_norm, pca_model)
+e1_preprocessed_features, _, _, _ = preprocess_features(e1_features, mean_norm, scale_norm, pca_model, use_pca=USE_PCA)
 
 # Preprocess features for E2 set using the same normalization and PCA model
 e2_features, e2_labels = extract_features_labels(e2_set, layers_to_use)
-e2_preprocessed_features, _, _, _ = preprocess_features(e2_features, mean_norm, scale_norm, pca_model)
+e2_preprocessed_features, _, _, _ = preprocess_features(e2_features, mean_norm, scale_norm, pca_model, use_pca=USE_PCA)
 
 # Preprocess features for E3 set (if applicable, uncomment and use as needed)
 e3_features, e3_labels = extract_features_labels(e3_set)
-e3_preprocessed_features, _, _, _ = preprocess_features(e3_features, mean_norm, scale_norm, pca_model)
+e3_preprocessed_features, _, _, _ = preprocess_features(e3_features, mean_norm, scale_norm, pca_model, use_pca=USE_PCA)
 
 # Train classifier
 lr_classifier = train_lr_classifier(train_preprocessed_features, train_labels)
+# save weights of lr_classifier in args.output_dir/weights.npz
+np.savez(os.path.join(args.output_dir, "weights.npz"), lr_classifier.coef_, lr_classifier.intercept_)
+
 knn_classifier = train_knn_classifier(train_preprocessed_features, train_labels, n_neighbors=KNN_CLUSTERS)
 
 # Assess clasifier on eval sets
 print("LR Classifier test on E1:")
-test_lr_classifier(lr_classifier, e1_preprocessed_features, e1_labels)
+test_lr_classifier(lr_classifier, e1_preprocessed_features, e1_labels, 
+                   out_path=os.path.join(args.output_dir, "lr_classifier_eval_e1.txt"))
+
 print("KNN Classifier test on E1:")
-test_knn_classifier(knn_classifier, e1_preprocessed_features, e1_labels)
+test_knn_classifier(knn_classifier, e1_preprocessed_features, e1_labels, 
+                    out_path=os.path.join(args.output_dir, "knn_classifier_eval_e1.txt"))
 
 # 
 print("LR Classifier test on E2:")
-test_lr_classifier(lr_classifier, e2_preprocessed_features, e2_labels)
+test_lr_classifier(lr_classifier, e2_preprocessed_features, e2_labels, 
+                   out_path=os.path.join(args.output_dir, "lr_classifier_eval_e2.txt"))
 print("KNN Classifier test on E2:")
-test_knn_classifier(knn_classifier, e2_preprocessed_features, e2_labels)
+test_knn_classifier(knn_classifier, e2_preprocessed_features, e2_labels, 
+                    out_path=os.path.join(args.output_dir, "knn_classifier_eval_e2.txt"))
 
 print("LR Classifier test on E3:")
-test_lr_classifier(lr_classifier, e3_preprocessed_features, e3_labels)
+test_lr_classifier(lr_classifier, e3_preprocessed_features, e3_labels, 
+                    out_path=os.path.join(args.output_dir, "lr_classifier_eval_e3.txt"))
 print("KNN Classifier test on E3:")
-test_knn_classifier(knn_classifier, e3_preprocessed_features, e3_labels)
+test_knn_classifier(knn_classifier, e3_preprocessed_features, e3_labels, 
+                    out_path=os.path.join(args.output_dir, "knn_classifier_eval_e3.txt"))
+
+print("Combining all output texts with titles into a main results.txt") 
+with open(os.path.join(args.output_dir, "lr_classifier_eval_e1.txt"), 'r') as f: 
+    e1_text = "\n=== E1 LINEAR CLASSIFIER EVAL ===\n"
+    e1_text += f.read()
+with open(os.path.join(args.output_dir, "knn_classifier_eval_e1.txt"), 'r') as f:
+    e1_text += "\n=== E1 KNN CLASSIFIER EVAL ===\n"
+    e1_text += f.read()
+with open(os.path.join(args.output_dir, "lr_classifier_eval_e2.txt"), 'r') as f:
+    e2_text = "\n=== E2 LINEAR CLASSIFIER EVAL ===\n"
+    e2_text += f.read()
+with open(os.path.join(args.output_dir, "knn_classifier_eval_e2.txt"), 'r') as f:
+    e2_text += "\n=== E2 KNN CLASSIFIER EVAL ===\n"
+    e2_text += f.read()
+with open(os.path.join(args.output_dir, "lr_classifier_eval_e3.txt"), 'r') as f:
+    e3_text = "\n=== E3 LINEAR CLASSIFIER EVAL ===\n"
+    e3_text += f.read()
+with open(os.path.join(args.output_dir, "knn_classifier_eval_e3.txt"), 'r') as f:
+    e3_text += "\n=== E3 KNN CLASSIFIER EVAL ===\n"
+    e3_text += f.read()
+
+use_pca_text = f"=== USE_PCA = {USE_PCA} ===\n"
+
+# write e1_text + e2_text + e3_test to a results.txt in the out dir
+with open(os.path.join(args.output_dir, "results.txt"), 'w') as f:
+    f.write(use_pca_text + e1_text + e2_text + e3_text)
 
 # View the dataset PCA
 all_features, all_labels = extract_features_labels(latent_space_data)
-all_preprocessed_features, _, _, pca_model = preprocess_features(all_features)
 adjectives = [item['adjective'] for item in latent_space_data] # Assuming 'data' is your entire dataset # Optionally, if you want to visualize using specific labels or adjectives
+prompts = [item['prompt_template'] for item in latent_space_data] # Assuming 'data' is your entire dataset # Optionally, if you want to visualize using specific labels or adjectives
+
+all_adjectives = list(set(entry['adjective'] for entry in latent_space_data))
+all_prompts = list(set(entry['prompt_template'] for entry in latent_space_data))
+# pdb.set_trace()
+
 if PLOT_ALL_DATA:
-    plot_3d_pca(all_preprocessed_features, all_labels, adjectives=adjectives)
+    for prompt in all_prompts: 
+        prompt_mask = [item['prompt_template'] == prompt for item in latent_space_data]
+
+        # pdb.set_trace()
+        all_features_filtered = all_features[prompt_mask, :]
+        all_labels_filtered = all_labels[prompt_mask]
+        all_preprocessed_features, _, _, pca_model = preprocess_features(all_features_filtered, use_pca = True, pca_model = pca_model, mean = mean_norm, scale = scale_norm)
+        # pdb.set_trace()
+        plot_3d_pca(all_preprocessed_features, all_labels_filtered, adjectives=np.array(adjectives)[prompt_mask].tolist(), output_dir = args.output_dir, prompt=prompt)
 
 # View the linear regression classifier coefficients per layer (only makes sense to do if we haven't PCA'ed)
 if not USE_PCA and PLOT_LR:
-    plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use, cache_dir = args.cache_dir)
+    plot_mean_coefficients_per_layer_with_plotly(lr_classifier, layers_to_use, output_dir = args.output_dir)
