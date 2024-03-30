@@ -24,10 +24,12 @@ def combinatorically_sub_in_adjectives(adjective_data, prompt_templates, model_n
     # ensure it is of the correct format as specified in the doc
     full_prompt_list = []
     for template in prompt_templates:
-        for valence in ['valence_good', 'valence_bad']:
-            for adjective in adjective_data[valence]:
+        for adj_class_name in adjective_data.keys():
+            for adjective in adjective_data[adj_class_name]:
+                if 'negation' not in template.keys(): 
+                    pdb.set_trace()
                 final_prompt = template['prompt_template'].format(adjective)
-                valence_good = ((valence == 'valence_good') and not template['negation']) or ((valence=='valence_bad') and template['negation'])
+                class_0_true = ((adj_class_name == list(adjective_data.keys())[0]) and not template['negation']) or ((adj_class_name==list(adjective_data.keys())[1]) and template['negation'])
 
                 # Tokenize the prompt, store in final_prompt_ids
                 final_prompt_ids = tokenizer.encode(final_prompt) # 1-dim list
@@ -42,7 +44,8 @@ def combinatorically_sub_in_adjectives(adjective_data, prompt_templates, model_n
                     'prompt_template': template['prompt_template'],
                     'note': template['note'],
                     'negation': template['negation'],
-                    'valence_good': valence_good, 
+                    'class_0_true': class_0_true, 
+                    'class_name': adj_class_name, 
                     'adjective': adjective, 
                     'model': model_name
                 })
@@ -67,7 +70,7 @@ def get_full_prompt_list(args, tokenizer):
         # If so, return the prompt override as the full prompt list
         # must have all entries in `full_prompt_list` for each entry 
         for item in prompt_override:
-            assert set(item.keys()) == set(['final_prompt', 'final_prompt_ids', 'token_of_interest', 'prompt_template', 'note', 'negation', 'valence_good', 'adjective', 'model'])
+            assert set(item.keys()) == set(['final_prompt', 'final_prompt_ids', 'token_of_interest', 'prompt_template', 'note', 'negation', 'class_0_true', 'adjective', 'model'])
         return prompt_override
 
     with open(args.adjective_json, 'r') as f:
