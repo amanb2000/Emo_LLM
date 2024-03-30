@@ -4,6 +4,7 @@ tqdm
 numpy 
 matplotlib
 plotly
+pandas
 
 torch
 transformers
