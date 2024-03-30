@@ -1,60 +1,61 @@
+=== USE_PCA = False ===
 
 === E1 LINEAR CLASSIFIER EVAL ===
               precision    recall  f1-score   support
 
-           0       0.79      0.66      0.72       225
-           1       0.71      0.83      0.76       225
+           0       0.76      0.83      0.80       225
+           1       0.81      0.74      0.78       225
 
-    accuracy                           0.74       450
-   macro avg       0.75      0.74      0.74       450
-weighted avg       0.75      0.74      0.74       450
+    accuracy                           0.79       450
+   macro avg       0.79      0.79      0.79       450
+weighted avg       0.79      0.79      0.79       450
 
 === E1 KNN CLASSIFIER EVAL ===
               precision    recall  f1-score   support
 
-           0       0.67      0.63      0.65       225
-           1       0.65      0.69      0.67       225
+           0       0.79      0.76      0.78       225
+           1       0.77      0.80      0.79       225
 
-    accuracy                           0.66       450
-   macro avg       0.66      0.66      0.66       450
-weighted avg       0.66      0.66      0.66       450
+    accuracy                           0.78       450
+   macro avg       0.78      0.78      0.78       450
+weighted avg       0.78      0.78      0.78       450
 
 === E2 LINEAR CLASSIFIER EVAL ===
               precision    recall  f1-score   support
 
-           0       0.65      0.39      0.48       215
-           1       0.52      0.76      0.62       189
+           0       0.62      0.94      0.75       162
+           1       0.91      0.49      0.64       182
 
-    accuracy                           0.56       404
-   macro avg       0.59      0.57      0.55       404
-weighted avg       0.59      0.56      0.55       404
+    accuracy                           0.71       344
+   macro avg       0.77      0.72      0.70       344
+weighted avg       0.78      0.71      0.69       344
 
 === E2 KNN CLASSIFIER EVAL ===
               precision    recall  f1-score   support
 
-           0       0.54      0.79      0.64       215
-           1       0.50      0.24      0.33       189
+           0       0.52      0.82      0.64       162
+           1       0.68      0.34      0.45       182
 
-    accuracy                           0.53       404
-   macro avg       0.52      0.51      0.48       404
-weighted avg       0.52      0.53      0.49       404
+    accuracy                           0.56       344
+   macro avg       0.60      0.58      0.54       344
+weighted avg       0.61      0.56      0.54       344
 
 === E3 LINEAR CLASSIFIER EVAL ===
               precision    recall  f1-score   support
 
-           0       0.83      0.75      0.79       155
-           1       0.76      0.84      0.80       148
+           0       0.83      0.82      0.83       111
+           1       0.82      0.83      0.83       109
 
-    accuracy                           0.80       303
-   macro avg       0.80      0.80      0.80       303
-weighted avg       0.80      0.80      0.80       303
+    accuracy                           0.83       220
+   macro avg       0.83      0.83      0.83       220
+weighted avg       0.83      0.83      0.83       220
 
 === E3 KNN CLASSIFIER EVAL ===
               precision    recall  f1-score   support
 
-           0       0.75      0.71      0.73       155
-           1       0.71      0.76      0.73       148
+           0       0.82      0.72      0.77       111
+           1       0.75      0.83      0.79       109
 
-    accuracy                           0.73       303
-   macro avg       0.73      0.73      0.73       303
-weighted avg       0.73      0.73      0.73       303
+    accuracy                           0.78       220
+   macro avg       0.78      0.78      0.78       220
+weighted avg       0.78      0.78      0.78       220

@@ -1,0 +1,61 @@
+=== USE_PCA = False ===
+
+=== E1 LINEAR CLASSIFIER EVAL ===
+              precision    recall  f1-score   support
+
+           0       0.92      0.88      0.90      3556
+           1       0.89      0.92      0.91      3556
+
+    accuracy                           0.90      7112
+   macro avg       0.90      0.90      0.90      7112
+weighted avg       0.90      0.90      0.90      7112
+
+=== E1 KNN CLASSIFIER EVAL ===
+              precision    recall  f1-score   support
+
+           0       0.89      0.86      0.87      3556
+           1       0.86      0.89      0.88      3556
+
+    accuracy                           0.88      7112
+   macro avg       0.88      0.88      0.88      7112
+weighted avg       0.88      0.88      0.88      7112
+
+=== E2 LINEAR CLASSIFIER EVAL ===
+              precision    recall  f1-score   support
+
+           0       0.81      0.86      0.83      3078
+           1       0.85      0.80      0.82      3078
+
+    accuracy                           0.83      6156
+   macro avg       0.83      0.83      0.83      6156
+weighted avg       0.83      0.83      0.83      6156
+
+=== E2 KNN CLASSIFIER EVAL ===
+              precision    recall  f1-score   support
+
+           0       0.80      0.87      0.83      3078
+           1       0.86      0.78      0.82      3078
+
+    accuracy                           0.82      6156
+   macro avg       0.83      0.82      0.82      6156
+weighted avg       0.83      0.82      0.82      6156
+
+=== E3 LINEAR CLASSIFIER EVAL ===
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.99      1817
+           1       0.99      0.98      0.99      1747
+
+    accuracy                           0.99      3564
+   macro avg       0.99      0.99      0.99      3564
+weighted avg       0.99      0.99      0.99      3564
+
+=== E3 KNN CLASSIFIER EVAL ===
+              precision    recall  f1-score   support
+
+           0       0.90      0.93      0.91      1817
+           1       0.92      0.89      0.91      1747
+
+    accuracy                           0.91      3564
+   macro avg       0.91      0.91      0.91      3564
+weighted avg       0.91      0.91      0.91      3564
