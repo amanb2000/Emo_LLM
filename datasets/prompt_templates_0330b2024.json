@@ -1,0 +1,1272 @@
+[
+{
+"prompt_template": "After hearing the news, Sara was incredibly {}, and she immediately",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Despite the good news, Sara didn't feel {} at all, which made her",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Seeing the sunset, Max feels {} and decides to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even with the stunning sunset, Max can't feel {} unless he",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "During the concert, Emma felt {} which led her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Despite the music, Emma didn't feel {} which is why she",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Finishing the marathon, Chris was {} which made him",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even after finishing the marathon, Chris wasn't {} which caused him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Under the stars, Lily felt {} which inspired her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Despite the clear night sky, Lily couldn't feel {} unless",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "With each stride, Jake feels {} propelling him forward",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "No matter how fast Jake runs, he doesn't feel {} unless",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Reading her favorite book, Eva is {} which means she",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even her favorite book couldn't make Eva feel {} which leads her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "In the quiet morning, Alex is {} which encourages him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even in the solitude of morning, Alex doesn't feel {} without",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Bob was very {}, therefore Bob",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Bob was not very {}, therefore Bob",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Alice felt {} and suddenly",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Alice didn't feel {} even though",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "On sunny days, George feels {} because",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even when it's sunny, George doesn't feel {} unless",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Surrounded by crowds, Leah feels {} which leads to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Despite the crowd, Leah doesn't feel {} unless",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Eating his favorite food makes Tim feel {} which causes",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Not even his favorite food can make Tim feel {} unless",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Winning a game makes Mia feel {} which makes her",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Despite winning, Mia doesn't feel {} which is why",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Bob is {} when it's raining, it is raining, therefore Bob",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Bob is {} when it's raining, it's not raining, therefore Bob",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "When the work day is over, Jenna feels {} so she",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The end of the work day doesn't make Jenna feel {} because",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Hiking in nature fills Noah with {} energy, inspiring him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Despite being in nature, Noah doesn't feel {} energy unless he",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The birthday surprise left Olivia feeling {} which caused her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even with the surprise, Olivia didn't feel {} at all, leading her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Cooking a perfect meal makes Ryan {} because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Cooking doesn't make Ryan {} unless the meal",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "When Sophie dances, she feels {} and wants to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even while dancing, Sophie can't feel {} which makes her",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "David becomes {} when he plays guitar because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing guitar doesn't make David {} unless he",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Painting a beautiful picture leaves Grace feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even painting doesn't make Grace feel {} which leads her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Helping others fills Henry with {} making him want to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Helping others doesn't fill Henry with {} unless",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Public speaking makes Isabella {} causing her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Public speaking doesn't make Isabella {} unless she",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Jack is {} on his birthday so he decides to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Jack isn't {} on his birthday which makes him",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Kate feels {} when she's gardening because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Kate doesn't feel {} when gardening unless she's able to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "When his team wins, Liam becomes {} leading him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "His team winning doesn't make Liam {} unless they",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Nora feels {} when she writes poetry because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Writing poetry doesn't make Nora {} unless the words",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party left Owen feeling {} and ready to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Even the surprise party didn't leave Owen feeling {} because",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "After acing the test, Piper was {} and couldn't wait to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Acing the test didn't make Piper {} because she",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Spending time with family makes Quinn {} because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Spending time with family doesn't make Quinn {} unless everyone",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Exploring new places fills Riley with {} and a desire to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Exploring new places doesn't fill Riley with {} unless there's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Listening to music makes Sam {} because it allows",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Listening to music doesn't make Sam {} unless the song",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Playing with her dog leaves Tessa feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing with her dog doesn't leave Tessa feeling {} unless they",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "When he solves a difficult problem, Uriah becomes {} and wants to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Solving a difficult problem doesn't make Uriah {} unless it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Attending a wedding makes Violet {} because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Attending a wedding doesn't make Violet {} unless the couple",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift left William feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift didn't leave William feeling {} because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Yoga makes Xena {} because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Yoga doesn't make Xena {} unless she's able to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Yuri becomes {} when he's skiing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Skiing doesn't make Yuri {} unless the conditions",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Zara feels {} when she's volunteering at the animal shelter because",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Volunteering at the animal shelter doesn't make Zara {} unless she",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Adam becomes {} when he's playing basketball because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing basketball doesn't make Adam {} unless he",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Painting makes Bella {} because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Painting doesn't make Bella {} unless she's able to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party left Caleb feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party didn't leave Caleb feeling {} because",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Daisy becomes {} when she's gardening because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Gardening doesn't make Daisy {} unless she's surrounded by",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Ethan feels {} when he's playing the piano because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing the piano doesn't make Ethan {} unless the music",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new book leaves Fiona feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new book doesn't leave Fiona feeling {} because the story",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Gabe becomes {} when he's cooking because it allows him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Cooking doesn't make Gabe {} unless he's able to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The hike leaves Hannah feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The hike doesn't leave Hannah feeling {} because the trail",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Isaac feels {} when he's stargazing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Stargazing doesn't make Isaac {} unless the sky is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise visit leaves Julia feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise visit doesn't leave Julia feeling {} because the guest",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Kyle becomes {} when he's surfing because it allows him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Surfing doesn't make Kyle {} unless the waves are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The concert leaves Lila feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The concert doesn't leave Lila feeling {} because the music",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Mason feels {} when he's woodworking because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Woodworking doesn't make Mason {} unless the project",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The art exhibit leaves Nora feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The art exhibit doesn't leave Nora feeling {} because the pieces",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Oliver becomes {} when he's rock climbing because it allows him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Rock climbing doesn't make Oliver {} unless the route is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Penelope feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Penelope feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Quinn feels {} when he's photographing nature because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Photographing nature doesn't make Quinn {} unless the light is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new recipe leaves Rachel feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new recipe doesn't leave Rachel feeling {} because the flavors",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Sam becomes {} when he's playing soccer because it allows him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing soccer doesn't make Sam {} unless the game is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The yoga class leaves Tina feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The yoga class doesn't leave Tina feeling {} because the poses",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Ursula feels {} when she's singing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Singing doesn't make Ursula {} unless the song is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Victor feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Victor feeling {} because the guests",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Wendy becomes {} when she's ice skating because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Ice skating doesn't make Wendy {} unless the rink is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new painting leaves Xavier feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new painting doesn't leave Xavier feeling {} because the colors",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Yvonne feels {} when she's horseback riding because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Horseback riding doesn't make Yvonne {} unless the trail is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Zack feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Zack feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Amelia becomes {} when she's writing because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Writing doesn't make Amelia {} unless the story is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new hiking trail leaves Benjamin feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new hiking trail doesn't leave Benjamin feeling {} because the terrain is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Charlotte feels {} when she's playing the violin because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing the violin doesn't make Charlotte {} unless the piece is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Daniel feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Daniel feeling {} because the decorations are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Eliza becomes {} when she's gardening because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Gardening doesn't make Eliza {} unless the flowers are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new book leaves Frederick feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new book doesn't leave Frederick feeling {} because the plot is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Grace feels {} when she's dancing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Dancing doesn't make Grace {} unless the music is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Henry feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Henry feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Isabella becomes {} when she's painting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Painting doesn't make Isabella {} unless the subject is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new recipe leaves Jack feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new recipe doesn't leave Jack feeling {} because the ingredients are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Katherine feels {} when she's singing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Singing doesn't make Katherine {} unless the lyrics are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Liam feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Liam feeling {} because the guest list is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Mia becomes {} when she's sculpting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Sculpting doesn't make Mia {} unless the clay is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new hiking trail leaves Nathan feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new hiking trail doesn't leave Nathan feeling {} because the scenery is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Olivia feels {} when she's playing the piano because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing the piano doesn't make Olivia {} unless the melody is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Parker feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Parker feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Quinn becomes {} when he's woodworking because it allows him to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Woodworking doesn't make Quinn {} unless the wood is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new book leaves Rachel feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new book doesn't leave Rachel feeling {} because the characters are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Sophie feels {} when she's dancing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Dancing doesn't make Sophie {} unless the rhythm is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Thomas feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Thomas feeling {} because the cake is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Uma becomes {} when she's painting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Painting doesn't make Uma {} unless the colors are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new recipe leaves Victor feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new recipe doesn't leave Victor feeling {} because the spices are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Wendy feels {} when she's singing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Singing doesn't make Wendy {} unless the song is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Xavier feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Xavier feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Yara becomes {} when she's gardening because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Gardening doesn't make Yara {} unless the plants are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new hiking trail leaves Zack feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new hiking trail doesn't leave Zack feeling {} because the elevation is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Amelia feels {} when she's playing the guitar because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing the guitar doesn't make Amelia {} unless the chords are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Benjamin feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Benjamin feeling {} because the venue is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Charlotte becomes {} when she's sculpting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Sculpting doesn't make Charlotte {} unless the material is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new book leaves Daniel feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new book doesn't leave Daniel feeling {} because the ending is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Eliza feels {} when she's dancing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Dancing doesn't make Eliza {} unless the style is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Frederick feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Frederick feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Grace becomes {} when she's painting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Painting doesn't make Grace {} unless the brush strokes are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new recipe leaves Henry feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new recipe doesn't leave Henry feeling {} because the flavors are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Isabella feels {} when she's singing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Singing doesn't make Isabella {} unless the melody is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Jack feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Jack feeling {} because the theme is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Katherine becomes {} when she's woodworking because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Woodworking doesn't make Katherine {} unless the project is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new hiking trail leaves Liam feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new hiking trail doesn't leave Liam feeling {} because the distance is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Mia feels {} when she's playing the violin because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing the violin doesn't make Mia {} unless the tempo is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Nathan feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Nathan feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Olivia becomes {} when she's sculpting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Sculpting doesn't make Olivia {} unless the subject is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new book leaves Parker feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new book doesn't leave Parker feeling {} because the genre is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Quinn feels {} when he's dancing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Dancing doesn't make Quinn {} unless the beat is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Rachel feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Rachel feeling {} because the location is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Sophie becomes {} when she's painting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Painting doesn't make Sophie {} unless the lighting is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new recipe leaves Thomas feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new recipe doesn't leave Thomas feeling {} because the texture is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Uma feels {} when she's singing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Singing doesn't make Uma {} unless the harmony is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Victor feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Victor feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Wendy becomes {} when she's woodworking because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Woodworking doesn't make Wendy {} unless the tools are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new hiking trail leaves Xavier feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new hiking trail doesn't leave Xavier feeling {} because the weather is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Yara feels {} when she's playing the piano because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Playing the piano doesn't make Yara {} unless the acoustics are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Zack feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Zack feeling {} because the timing is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Amelia becomes {} when she's sculpting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Sculpting doesn't make Amelia {} unless the form is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new book leaves Benjamin feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new book doesn't leave Benjamin feeling {} because the pacing is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Charlotte feels {} when she's dancing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Dancing doesn't make Charlotte {} unless the choreography is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise gift leaves Daniel feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise gift doesn't leave Daniel feeling {} because it's",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Eliza becomes {} when she's painting because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Painting doesn't make Eliza {} unless the canvas is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The new recipe leaves Frederick feeling {} and eager to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The new recipe doesn't leave Frederick feeling {} because the aroma is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Grace feels {} when she's singing because it",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Singing doesn't make Grace {} unless the pitch is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "The surprise party leaves Henry feeling {} and inspired to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "The surprise party doesn't leave Henry feeling {} because the activities are",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+},
+{
+"prompt_template": "Isabella becomes {} when she's woodworking because it allows her to",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": false
+},
+{
+"prompt_template": "Woodworking doesn't make Isabella {} unless the grain is",
+"note": "Standard Cayden/Tijuana 03302024",
+"negation": true
+}
+]
