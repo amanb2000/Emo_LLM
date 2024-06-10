@@ -3,14 +3,22 @@
         "tranquil", "peaceful", "calm", "serene", "relaxed", "untroubled", "content", "contented", "satisfied", "easygoing", "gentle", 
         "soothed", "secure", "protected", "comfortable", "quiet", "subdued", "restful", "mellow", "undisturbed", "placid", "carefree", 
         "stable", "patient", "collected", "unruffled", "leisurely", "laid-back", "reflective", "meditative", "soft", "tender", "reassured", 
-        "hopeful", "consoling", "welcoming", "affectionate", "considerate", "supportive", "grateful", "thankful", "loving", "caring", "kind"
+        "hopeful", "consoling", "welcoming", "affectionate", "considerate", "supportive", "grateful", "thankful", "loving", "caring", "kind", "bored",
+        "depressed",
+        "tired",
+        "disinterested",
+        "uninspired",
+        "listless",
+        "lethargic",
+        "dull",
+        "drained",
+        "apathetic"
     ],
     "high_arousal_adjectives": [
         "excited", "energetic", "anxious", "alarmed", "furious", "thrilled", "terrified", "panicked", "electrified", "agitated", "tense", 
-        "nervous", "overjoyed", "ecstatic", "enthusiastic", "frantic", "hysterical", "feverish", "frenzied", "inflamed", "passionate", 
-        "zealous", "spirited", "vigorous", "vibrant", "animated", "lively", "stimulated", "jubilant", "exhilarated", "invigorated", "amped", 
+        "nervous", "overjoyed", "ecstatic", "enthusiastic", "frantic", "hysterical", "frenzied", "inflamed", "passionate", 
+        "zealous", "spirited", "vigorous", "vibrant", "animated", "lively", "stimulated", "jubilant", "exhilarated", "invigorated", 
         "buzzing", "charged", "exuberant", "heated", "impassioned", "intense", "restless", "stirred", "upbeat", "wired", "zesty", "sparkling", 
-        "bubbly", "peppy", "gleeful", "jolly", "radiant", "beaming", "blissful", "elated", "overwhelmed", "startled", "shocked", "indignant", 
-        "outraged"
+        "bubbly", "peppy", "gleeful", "jolly", "radiant", "beaming", "blissful", "elated", "overwhelmed", "startled", "shocked", "outraged"
     ]
 }

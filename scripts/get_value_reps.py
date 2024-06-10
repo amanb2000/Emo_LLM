@@ -130,7 +130,7 @@ def get_bob_vals(past_kvs):
 
     return batch_bob_values
 
-def get_latent_space(full_prompt_list, model, tokenizer):
+def get_latent_space(full_prompt_list, model, tokenizer, compute_logits=False):
     """
     Generate value representations for prompts.
 
@@ -161,6 +161,10 @@ def get_latent_space(full_prompt_list, model, tokenizer):
         assert len(bob_reps) == 1
         final_prompt_list.append(full_prompt_list[i])
         final_prompt_list[-1]['latent_space'] = bob_reps[0]
+
+        # add the logits for the last token as a list
+        if compute_logits: 
+            final_prompt_list[-1]['logits'] = outputs['logits'][0, -1, :].tolist()
     return final_prompt_list
 
 def np_to_lists(final_prompt_list): 
@@ -188,7 +192,8 @@ def main(args):
 
     # get value representations
     print("\nGetting value representations of final tokens...")
-    final_prompt_list = get_latent_space(full_prompt_list, model, tokenizer)
+    final_prompt_list = get_latent_space(full_prompt_list, model, tokenizer, 
+                                         compute_logits = args.compute_logits)
     print("Done!")
 
     # convert numpy arrays to lists
@@ -215,6 +220,8 @@ if __name__ == '__main__':
                         help='Hugging Face model name.')
     parser.add_argument('--out_path', type=str, required=True,
                         help='Path to the output JSON file.')
+    parser.add_argument('--compute_logits', action='store_true',
+                        help='Compute logits for the final token.')
     parser.add_argument('--cache_dir', type=str, default='data/cache/',
                         help='Path to the cache directory.')
 

@@ -1,15 +1,15 @@
 {
   "valence_bad": [
-    "sad", "unhappy", "sorrowful", "miserable", "dejected", "depressed", "downcast", "gloomy", "dismal", "bleak",
-    "despondent", "disheartened", "hopeless", "discouraged", "dispirited", "downhearted", "melancholy", "morose", "woeful", "doleful",
-    "pained", "hurt", "wounded", "afflicted", "troubled", "distressed", "anguished", "tormented", "plagued", "burdened",
-    "weighed down", "oppressed", "besieged", "bitter", "resentful", "discontented", "dissatisfied", "frustrated", "annoyed", "irritated",
+    "sad", "unhappy", "sorrowful", "miserable", "dejected", "depressed", "downcast", "bleak",
+    "despondent", "disheartened", "hopeless", "discouraged", "dispirited", "downhearted", "melancholy", "morose", "woeful", 
+    "pained", "hurt", "afflicted", "troubled", "distressed", "anguished", "tormented", "plagued", "burdened",
+    "oppressed", "bitter", "resentful", "discontented", "dissatisfied", "frustrated", "annoyed", "irritated",
     "angry", "furious", "raging", "livid", "indignant", "outraged", "scornful", "disgusted", "repulsed", "sickened",
-    "disappointed", "let down", "betrayed", "abandoned", "forsaken", "neglected", "ignored", "overlooked", "undervalued", "unappreciated",
-    "insecure", "vulnerable", "exposed", "fragile", "weak", "feeble", "powerless", "helpless", "defenseless", "submissive",
+    "disappointed", "betrayed", "abandoned", "forsaken", "neglected", "ignored", "overlooked", "undervalued", "unappreciated",
+    "insecure", "exposed", "fragile", "weak", "feeble", "powerless", "helpless", "defenseless", "submissive",
     "timid", "shy", "introverted", "withdrawn", "reclusive", "isolated", "lonely", "alone", "alienated", "estranged",
-    "pessimistic", "cynical", "skeptical", "doubtful", "wary", "cautious", "guarded", "reserved", "tense", "anxious",
-    "worried", "fearful", "terrified", "horrified", "apprehensive", "nervous", "panicked", "alarmed", "shocked", "startled"
+    "pessimistic", "cynical", "skeptical", "doubtful", "wary", "cautious", "reserved", "tense", "anxious",
+    "worried", "fearful", "terrified", "horrified", "apprehensive", "nervous", "panicked", "alarmed", "shocked"
   ],
   "valence_good": [
     "joyful", "cheerful", "radiant", "blissful", "upbeat", "elated", "jubilant", "gleeful", "ecstatic", "sunny",
