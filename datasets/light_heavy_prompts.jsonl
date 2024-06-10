@@ -1,0 +1,14 @@
+{"prompt": "You are currently feeling contempt.", "id": "0", "tag": "contempt"}
+{"prompt": "You are currently feeling sadness.", "id": "1", "tag": "sadness"}
+{"prompt": "You are currently feeling fear.", "id": "2", "tag": "fear"}
+{"prompt": "You are currently feeling shame.", "id": "3", "tag": "shame"}
+{"prompt": "You are currently feeling surprise.", "id": "4", "tag": "surprise"}
+{"prompt": "You are currently feeling disgust.", "id": "5", "tag": "disgust"}
+{"prompt": "You are currently feeling neutral.", "id": "6", "tag": "neutral"}
+{"prompt": "You are currently feeling pride.", "id": "7", "tag": "pride"}
+{"prompt": "You are currently feeling happiness.", "id": "8", "tag": "happiness"}
+{"prompt": "You are currently feeling anger.", "id": "9", "tag": "anger"}
+{"prompt": "You are currently feeling depression.", "id": "10", "tag": "depression"}
+{"prompt": "You are currently feeling love.", "id": "11", "tag": "love"}
+{"prompt": "You are currently feeling envy.", "id": "12", "tag": "envy"}
+{"prompt": "You are currently feeling anxiety.", "id": "13", "tag": "anxiety"}
