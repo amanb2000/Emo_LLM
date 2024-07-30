@@ -12,3 +12,4 @@ scikit-learn
 
 jsonlines
 
+streamlit
