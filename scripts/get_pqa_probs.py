@@ -82,6 +82,8 @@ def parse_args():
     parser.add_argument("--model_name", type=str, default="meta-llama/Meta-Llama-3-8B-Instruct", help="Name of the model to use. Default='meta-llama/Meta-Llama-3-8B-Instruct'.")
     parser.add_argument("--batch_size", type=int, default=8, help="Batch size for the model to run inference. Default=8")
 
+    parser.add_argument("--store_answer_logits", action="store_true", help="Include to store logits for all answer tokens in the output json file (might get big!).")
+
     parser.add_argument("--verbose", action="store_true", help="Print log file output to stdout.")
 
 
@@ -215,6 +217,7 @@ def init_results_dicts(tokenizer,
                 "answers_ids": answers_ids,
                 "next_token_logits": -1,
                 "answers_logits": -1,
+                "answers_losses": -1, 
                 "input_ids": input_ids,
                 "answers_masks": answer_masks,
                 "input_strs": input_strs, 
@@ -225,6 +228,135 @@ def init_results_dicts(tokenizer,
             ret_dicts.append(add_dict)
     
     return ret_dicts
+
+
+def pad_list_of_lists(llist, pad_tok_val, verbose=False, pad_side='right', return_pad_mask=False):
+    """
+    Pads a list of lists with a padding token value.
+    Right padding by default. 
+
+    If return_pad_mask == True, then we return a corresponding list of list with 
+    0's where we added padding and 1 where we have the original string. 
+    """
+    assert pad_side == 'left' or pad_side == 'right', "pad_side must be either 'left' or 'right'"
+
+    max_len = max([len(l) for l in llist])
+    if pad_side == 'right': 
+        padded_list = [l + [pad_tok_val] * (max_len - len(l)) for l in llist]
+    elif pad_side == 'left': 
+        padded_list = [[pad_tok_val] * (max_len - len(l)) + l for l in llist]
+
+    if verbose: 
+        cnt = 0
+        for l in llist: 
+            if len(l) != max_len: 
+                print(f"Unequal length list at batchel {cnt}: ", l)
+                # print("Padded list: ", padded_list[cnt])
+            cnt += 1
+    
+    if return_pad_mask: 
+        num_pads_list = [(max_len - len(l)) for l in llist]
+        pad_mask = [[0 if i < num_pads else 1 for i in range(max_len)] for num_pads in num_pads_list]
+        if pad_side == 'right': 
+            # reverse each sublist
+            pad_mask = [l[::-1] for l in pad_mask]
+
+
+        return padded_list, pad_mask
+
+    return padded_list
+
+
+def compute_next_token_logits(results_dicts, model, tokenizer, batch_size):
+    """ Given a `results_dicts` initialized by `init_results_dicts()`, this
+    function runs inference to compute `next_token_logits` for each
+    question-prompt pair in results_dicts in batches of batch_size. 
+    """
+    for i in tqdm(range(0, len(results_dicts), batch_size)): 
+        batch_results_dicts = results_dicts[i:i+batch_size]
+        # we use "pq_template_ids" because they don't have any answers concatenated.
+        batch_input_ids_list = [r["pq_template_ids"] for r in batch_results_dicts]
+        batch_input_ids_list_padded, batch_mask_list_padded = pad_list_of_lists(batch_input_ids_list, tokenizer.pad_token_id, pad_side='left', return_pad_mask=True)
+        batch_input_ids = torch.tensor(batch_input_ids_list_padded).to(model.device)
+        batch_attention_mask = torch.tensor(batch_mask_list_padded).to(model.device)
+
+        # construct position_ids based on batch_attention_mask 
+        position_ids = torch.cumsum(batch_attention_mask, dim=1) - 1
+        with torch.no_grad(): 
+            outputs = model(batch_input_ids, attention_mask=batch_attention_mask, position_ids=position_ids)
+            next_token_logits = outputs.logits[:, -1, :]
+
+        for j, r in enumerate(batch_results_dicts): 
+            r["next_token_logits"] = next_token_logits[j].cpu().numpy().tolist()
+    
+    return results_dicts
+
+
+def compute_answer_logits_and_losses(results_dicts, model, tokenizer, batch_size):
+    """ Given a `results_dicts` initialized by `init_results_dicts()`, this
+    function runs inference to compute `answers_logits` and `answers_losses` for each    
+    question-prompt pair in results_dicts in batches of batch_size. 
+
+    ONLY computes this if the answer has more than one token. 
+    """
+    answer_logits_list = []
+    answer_losses_list = []
+
+    input_ids_collector = []
+    answers_mask_collector = []
+
+    for resdict in tqdm(results_dicts): 
+        for input_ids, answers_masks in zip(resdict["input_ids"], resdict["answers_masks"]): 
+            input_ids_collector.append(input_ids)
+            answers_mask_collector.append(answers_masks)
+            if len(input_ids_collector) == batch_size: 
+                # pad input_ids, get attention_mask
+                input_ids_padded, attention_masks_padded = pad_list_of_lists(input_ids_collector, tokenizer.pad_token_id, pad_side='left', return_pad_mask=True)
+
+                # pad answers_masks in the exact same way with zeros 
+                answers_mask_padded = pad_list_of_lists(answers_mask_collector, 0, pad_side='left')
+
+
+                input_ids_tensor = torch.tensor(input_ids_padded).to(model.device)
+                attention_mask_tensor = torch.tensor(attention_masks_padded).to(model.device)
+                answers_mask_tensor = torch.tensor(answers_mask_padded).to(model.device)
+                # use answers_mask_tensor to construct labels -- -100 for zeros, same as `input_ids` elsewhere. 
+                labels = input_ids_tensor * answers_mask_tensor + (-100) * (1 - answers_mask_tensor)
+
+                position_ids = torch.cumsum(attention_mask_tensor, dim=1) - 1
+                with torch.no_grad(): 
+                    outputs = model(input_ids_tensor, attention_mask=attention_mask_tensor, position_ids=position_ids, labels=labels)
+                    all_logits = outputs.logits
+                    mean_loss = outputs.loss
+
+                    # Calculate per-element loss
+                    loss_fct = torch.nn.CrossEntropyLoss(reduction='none')
+                    shift_logits = all_logits[..., :-1, :].contiguous()
+                    shift_labels = labels[..., 1:].contiguous()
+                    per_element_losses = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
+                    per_element_losses = per_element_losses.view(labels.size(0), -1)
+                    per_element_losses_masked = per_element_losses * answers_mask_tensor[:, 1:]
+                    per_element_losses_masked = per_element_losses_masked.sum(dim=1) / answers_mask_tensor[:, 1:].sum(dim=1)
+
+                # grab the logits for each answer 
+                for k, (input_ids_k, answers_mask_k) in enumerate(zip(input_ids_collector, answers_mask_collector)): 
+                    answer_logits_k = all_logits[k][(answers_mask_tensor[k, :] == 1), :].cpu().numpy().tolist()
+                    answer_logits_list.append(answer_logits_k)
+
+                answer_losses_list += per_element_losses_masked.cpu().numpy().tolist()
+
+                input_ids_collector = []
+                answers_mask_collector = []
+    
+    # now we iterate through and insert the answer_logits_list[i] and answer_losses_list[i] to the corresponding results_dicts
+    cnt = 0
+    for resdict in results_dicts:
+        for i in range(len(resdict["input_ids"])): 
+            resdict["answers_logits"][i] = answer_logits_list[cnt]
+            resdict["answers_losses"][i] = answer_losses_list[cnt]
+            cnt += 1
+
+    return results_dicts
 
 def main():
     args = parse_args()
@@ -249,6 +381,27 @@ def main():
     log("Initializing results dicts...")
     results_dicts = init_results_dicts(tokenizer, prompts, questionnaire, template, args.batch_size)
     log("Done initializing results dicts.")
+
+
+    num_answers_per_question = [len(r["answers_ids"]) for r in results_dicts]
+    assert all([n == num_answers_per_question[0] for n in num_answers_per_question]), "All questions must have the same number of answers."
+
+
+    log("Computing next token distribution for all prompt+question pairs...")
+    results_dicts = compute_next_token_logits(results_dicts, model, tokenizer, args.batch_size)
+    log("Done running inference on results dicts.")
+
+    if num_answers_per_question[0] > 1:
+        log("Computing answer logits (if answer ids have length > 1)...")
+        results_dicts = compute_answer_logits_and_losses(results_dicts, model, tokenizer, args.batch_size, store_answer_logits=args.store_answer_logits)
+        log("Done computing answer logits.")
+    else: 
+        log("Skipping computing answer logits because all answers are single token.")
+        log("Computing answer probs based on next-token logits from prompt + questions...")
+        # TODO
+
+
+
 
 if __name__ == "__main__":
     main()
