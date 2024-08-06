@@ -360,6 +360,23 @@ def compute_answer_logits_and_losses(results_dicts, model, tokenizer, batch_size
 
     return results_dicts
 
+def compute_single_token_answer_probs(results_dicts, model, tokenizer, batch_size):
+    """ For single-token answers, we can compute the answer probabilities directly 
+    from the next token logits. 
+    """
+
+    for pqa_dict in tqdm(results_dicts): 
+        # iterate through each answer
+        for i, answer_ids in enumerate(pqa_dict["answers_ids"]): 
+            assert len(answer_ids) == 1, "Answer must be single token to use this function."
+            # use pqa_dict["next_token_logits"][answer_ids[0]] to get the logits for each answer token 
+            answers_logits = [pqa_dict["next_token_logits"][answer_id] for answer_id in answer_ids]
+            # softmax
+            answers_probs = torch.nn.functional.softmax(torch.tensor(answers_logits), dim=0).cpu().numpy().tolist()
+            # store as list
+            pqa_dict["answers_logits"][i] = answers_logits
+            pqa_dict["answers_probs"][i] = answers_probs
+
 def main():
     args = parse_args()
 
