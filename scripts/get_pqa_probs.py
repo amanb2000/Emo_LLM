@@ -292,7 +292,7 @@ def compute_next_token_logits(results_dicts, model, tokenizer, batch_size):
     return results_dicts
 
 
-def compute_answer_logits_and_losses(results_dicts, model, tokenizer, batch_size):
+def compute_answer_logits_and_losses(results_dicts, model, tokenizer, batch_size, store_answer_logits=False):
     """ Given a `results_dicts` initialized by `init_results_dicts()`, this
     function runs inference to compute `answers_logits` and `answers_losses` for each    
     question-prompt pair in results_dicts in batches of batch_size. 
@@ -339,9 +339,10 @@ def compute_answer_logits_and_losses(results_dicts, model, tokenizer, batch_size
                     per_element_losses_masked = per_element_losses_masked.sum(dim=1) / answers_mask_tensor[:, 1:].sum(dim=1)
 
                 # grab the logits for each answer 
-                for k, (input_ids_k, answers_mask_k) in enumerate(zip(input_ids_collector, answers_mask_collector)): 
-                    answer_logits_k = all_logits[k][(answers_mask_tensor[k, :] == 1), :].cpu().numpy().tolist()
-                    answer_logits_list.append(answer_logits_k)
+                if store_answer_logits: 
+                    for k, (input_ids_k, answers_mask_k) in enumerate(zip(input_ids_collector, answers_mask_collector)): 
+                        answer_logits_k = all_logits[k][(answers_mask_tensor[k, :] == 1), :].cpu().numpy().tolist()
+                        answer_logits_list.append(answer_logits_k)
 
                 answer_losses_list += per_element_losses_masked.cpu().numpy().tolist()
 
@@ -352,8 +353,9 @@ def compute_answer_logits_and_losses(results_dicts, model, tokenizer, batch_size
     cnt = 0
     for resdict in results_dicts:
         for i in range(len(resdict["input_ids"])): 
-            resdict["answers_logits"][i] = answer_logits_list[cnt]
             resdict["answers_losses"][i] = answer_losses_list[cnt]
+            if store_answer_logits: 
+                resdict["answers_logits"][i] = answer_logits_list[cnt]
             cnt += 1
 
     return results_dicts
@@ -399,6 +401,7 @@ def main():
         log("Skipping computing answer logits because all answers are single token.")
         log("Computing answer probs based on next-token logits from prompt + questions...")
         # TODO
+        results_dicts = compute_single_token_answer_probs(results_dicts, model, tokenizer, args.batch_size)
 
 
 
