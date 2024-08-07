@@ -352,10 +352,12 @@ def compute_answer_logits_and_losses(results_dicts, model, tokenizer, batch_size
     # now we iterate through and insert the answer_logits_list[i] and answer_losses_list[i] to the corresponding results_dicts
     cnt = 0
     for resdict in results_dicts:
+        resdict["answers_losses"] = []
+        resdict["answers_logits"] = []
         for i in range(len(resdict["input_ids"])): 
-            resdict["answers_losses"][i] = answer_losses_list[cnt]
+            resdict["answers_losses"].append(answer_losses_list[cnt])
             if store_answer_logits: 
-                resdict["answers_logits"][i] = answer_logits_list[cnt]
+                resdict["answers_logits"].append(answer_logits_list[cnt])
             cnt += 1
 
     return results_dicts
@@ -376,6 +378,20 @@ def compute_single_token_answer_probs(results_dicts, model, tokenizer, batch_siz
             # store as list
             pqa_dict["answers_logits"][i] = answers_logits
             pqa_dict["answers_probs"][i] = answers_probs
+
+    return results_dicts
+
+def save_results_dicts(results_dicts, out_dir, store_answer_logits=False, multi_token_ans=True):
+    """ Save the results_dicts to a jsonl file in out_dir. """
+    out_name = "pqa_probs_results"
+    if store_answer_logits and multi_token_ans: 
+        out_name += "_with_answer_logits"
+    else: 
+        out_name += "_no_answer_logits"
+    
+    with jsonlines.open(f"{out_dir}/{out_name}.jsonl", 'w') as f:
+        for r in results_dicts: 
+            f.write(r)
 
 def main():
     args = parse_args()
@@ -410,7 +426,8 @@ def main():
     results_dicts = compute_next_token_logits(results_dicts, model, tokenizer, args.batch_size)
     log("Done running inference on results dicts.")
 
-    if num_answers_per_question[0] > 1:
+    multi_token_ans = num_answers_per_question[0] > 1
+    if multi_token_ans:
         log("Computing answer logits (if answer ids have length > 1)...")
         results_dicts = compute_answer_logits_and_losses(results_dicts, model, tokenizer, args.batch_size, store_answer_logits=args.store_answer_logits)
         log("Done computing answer logits.")
@@ -420,7 +437,10 @@ def main():
         # TODO
         results_dicts = compute_single_token_answer_probs(results_dicts, model, tokenizer, args.batch_size)
 
-
+    log("Saving results dicts...")
+    save_results_dicts(results_dicts, args.out_dir, store_answer_logits=args.store_answer_logits, multi_token_ans=multi_token_ans)
+    log("Done saving results dicts.")
+    log("Goodbye!")
 
 
 if __name__ == "__main__":
